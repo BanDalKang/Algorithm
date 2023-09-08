@@ -1,69 +1,71 @@
 package Baekjun;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
-import java.util.function.Function;
 
 public class P11123 {
-    private static final char SHEEP = '#';
-    private static final char EMPTY = '.';
+    static int R, C, cnt;
+    static int[][] deltas = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    static char[][] map;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        Function<String,Integer> stoi = Integer::parseInt;
-        int testCnt = stoi.apply(st.nextToken());
-        for(int t = 0 ; t < testCnt ; t++){
-            st = new StringTokenizer(br.readLine());
-            int n = stoi.apply(st.nextToken());
-            int m = stoi.apply(st.nextToken());
-            char[][] map = new char[n][m];
-            for(int i = 0 ; i < n ; i++){
-                String command = br.readLine();
-                for(int j = 0 ; j < m ; j++){
-                    map[i][j] = command.charAt(j);
-                }
+        StringBuilder sb = new StringBuilder();
+        int TC = Integer.parseInt(br.readLine());
+
+        for (int tc = 0; tc < TC; tc++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            R = Integer.parseInt(st.nextToken());
+            C = Integer.parseInt(st.nextToken());
+
+            map = new char[R][C];
+            for (int r = 0; r < R; r++) {
+                String input = br.readLine();
+                map[r] = input.toCharArray();
             }
-            int result = 0;
-            boolean[][] visited = new boolean[n][m];
-            for(int i = 0 ; i < n ; i++){
-                for(int j = 0 ; j < m ; j++){
-                    if(!visited[i][j] && map[i][j] == SHEEP){
-                        bfs(i,j,map,visited,n,m);
-                        result++;
+            cnt = 0; // cnt 초기화
+
+            // 입력완료
+            for (int r = 0; r < R; r++) {
+                for (int c = 0; c < C; c++) {
+                    if (map[r][c] == '#') {
+                        cnt++; // 탐색할때마다 카운트 세주기
+                        dfs(r, c);
                     }
                 }
             }
-            System.out.println(result);
+            sb.append(cnt + "\n");
         }
-    }
-    private static final int[] DY = {-1,0,1,0};
-    private static final int[] DX = {0,1,0,-1};
-
-    private static void bfs(int y, int x, char[][] map, boolean[][] visited,int n,int m) {
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[] {y,x});
-        visited[y][x] = true;
-        while(!q.isEmpty()){
-             int[] now = q.poll();
-             for(int i = 0 ; i < 4; i++){
-                 int ny = now[0] + DY[i];
-                 int nx = now[1] + DX[i];
-                 if(checkBound(ny,nx,n,m) && map[ny][nx] == SHEEP && !visited[ny][nx]){
-                     q.offer(new int[] {ny,nx});
-                     visited[ny][nx] = true;
-                 }
-             }
-        }
+        System.out.println(sb);
     }
 
-    private static boolean checkBound(int ny, int nx, int n, int m) {
-        if( ny >= 0 && ny < n && nx >= 0 && nx < m){
-            return true;
+    static void dfs(int r, int c) {
+        map[r][c] = '.'; // 현재 위치를 '.'으로 (방문 표시)
+        for (int d = 0; d < 4; d++) {
+            int nr = r + deltas[d][0];
+            int nc = c + deltas[d][1];
+            if (isIn(nr, nc) && map[nr][nc] == '#') {
+                dfs(nr, nc);
+            }
         }
-        return false;
+        printMap();
+        return;
+    }
+
+    static boolean isIn(int nr, int nc) {
+        return nr >= 0 && nr < R && nc >= 0 && nc < C;
+    }
+
+    // map 출력 함수
+    static void printMap() {
+        for (int r = 0; r < R; r++) {
+            for (int c = 0; c < C; c++) {
+                System.out.print(map[r][c]);
+            }
+            System.out.println(); // 각 행이 끝날 때마다 개행
+        }
+        System.out.println(); // map 출력 간 구분을 위한 빈 줄 추가
     }
 }
