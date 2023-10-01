@@ -1,3 +1,5 @@
+package D2;
+
 import java.util.Scanner;
 
 class Solution {
