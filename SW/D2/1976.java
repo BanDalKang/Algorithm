@@ -1,32 +1,30 @@
 package D2;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 class Solution{
     public static void main(String args[]) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
-        for(int test_case = 1; test_case <= T; test_case++){
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            int h1 = Integer.parseInt(st.nextToken());
-            int m1 = Integer.parseInt(st.nextToken());
-            int h2 = Integer.parseInt(st.nextToken());
-            int m2 = Integer.parseInt(st.nextToken());
-            int h = (h1+h2);
-            int m = (m1+m2);
-            if(h>12){
-                h -= 12;
+
+        for(int t = 1; t <= T; t++){
+            int N = Integer.parseInt(br.readLine()); // 거슬러 줘야 할 금액
+
+            int[] moneyTypes = { 50000, 10000, 5000, 1000, 500, 100, 50, 10 };
+            int[] moneyCount = new int[8];
+
+            for (int i = 0; i < 8; i++) {
+                moneyCount[i] = N / moneyTypes[i];
+                N = N % moneyTypes[i];
             }
-            if(m>60){
-                m-=60;
-                h++;
+
+            // 결과 출력
+            System.out.print("#" + t + "\n");
+            for (int i = 0; i < 8; i++) {
+                System.out.print(moneyCount[i] + " ");
             }
-            if(m == 60){ 
-                h++;
-                m =1;
-            }
-            System.out.println("#"+test_case+" "+h+" "+m);
+            System.out.println();
         }
     }
 }
