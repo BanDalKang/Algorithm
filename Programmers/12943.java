@@ -1,4 +1,4 @@
-class Solution {
+public class Solution {
     public int solution(int num) {
         long number = (long) num; // int 범위를 넘어가는 경우를 대비하여 long으로 변환
 
@@ -12,4 +12,5 @@ class Solution {
 
         return -1; // 500번 반복해도 1이 되지 않으면 -1 반환
     }
+
 }
