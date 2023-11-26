@@ -1,4 +1,3 @@
-
 class Solution {
     public String solution(String[] cards1, String[] cards2, String[] goal) {
         int cardIdx1 = 0;
