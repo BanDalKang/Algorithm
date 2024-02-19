@@ -10,9 +10,9 @@ class Solution {
         }
 
         // 각 전화번호의 접두어가 해시맵에 있는지 확인
-        for (String phoneNumber : phone_book) {
-            for (int i = 1; i < phoneNumber.length(); i++) {
-                if (phone_numberMap.containsKey(phoneNumber.substring(0, i))) {
+        for (String phone_number : phone_book) {
+            for (int i = 1; i < phone_number.length(); i++) {
+                if (phone_numberMap.containsKey(phone_number.substring(0, i))) {
                     return false; // 접두어가 있으면 false 반환
                 }
             }
