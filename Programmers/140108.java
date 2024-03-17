@@ -1,23 +1,23 @@
 class Solution {
     public int solution(String s) {
-        char prev = 'A';
+        char firstChar = 'A';
         int same = 0;
         int different = 0;
         int answer = 0;
         
         for (char c : s.toCharArray()) {
-            if (prev == 'A') {
-                prev = c;
+            if (firstChar == 'A') {
+                firstChar = c;
                 same++;
                 answer++;
-            } else if (prev == c) {
+            } else if (firstChar == c) {
                 same++;
             } else {
                 different++;
             }
 
             if (same == different) {
-                prev = 'A';
+                firstChar = 'A';
                 same = 0; 
                 different = 0;
             }
