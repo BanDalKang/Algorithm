@@ -35,10 +35,10 @@ class Solution {
             }
         }
         
-        int totalScore = 0;
+        int answer = 0;
         for (int score : scores) {
-            totalScore += score;
+            answer += score;
         }
-        return totalScore;
+        return answer;
     }
 }
